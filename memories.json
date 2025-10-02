@@ -1,0 +1,23 @@
+{
+  "memories": [
+    {
+      "id": "mem_1759418762228_1i6zwdqb8",
+      "content": "Joplin codebase analysis:\n- Monorepo using Yarn workspaces and Lerna\n- Key packages: app-desktop (Electron), app-mobile (React Native), server (Node.js), lib (shared)\n- Main scripts: buildParallel/buildSequential, test-ci, linter, tsc\n- Development tools: ESLint, TypeScript, Jest, Gulp\n- Architecture: Multi-platform (desktop/mobile/web/server/cli) with shared core library",
+      "type": "concept",
+      "tags": [
+        "concept",
+        "typescript",
+        "react",
+        "joplin",
+        "architecture",
+        "build-tools"
+      ],
+      "timestamp": "2025-10-02T15:26:02.228Z",
+      "accessCount": 0,
+      "lastAccessed": "2025-10-02T15:26:02.228Z",
+      "lastVerified": "2025-10-02T15:26:02.228Z",
+      "status": "fresh"
+    }
+  ],
+  "lastUpdated": "2025-10-02T15:26:02.228Z"
+}
