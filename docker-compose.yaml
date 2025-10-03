@@ -1,0 +1,77 @@
+version: '3.8'
+
+networks:
+  joplin-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  db:
+    image: postgres:16
+    container_name: joplin-db
+    networks:
+      - joplin-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-joplin_password}
+      POSTGRES_USER: ${POSTGRES_USER:-joplin}
+      POSTGRES_DB: ${POSTGRES_DATABASE:-joplin}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-joplin} -d ${POSTGRES_DATABASE:-joplin}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  app:
+    image: joplin/server:latest
+    container_name: joplin-server
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - joplin-network
+    ports:
+      - "${APP_PORT:-22300}:22300"
+    environment:
+      # Application settings
+      APP_PORT: 22300
+      APP_BASE_URL: ${APP_BASE_URL}
+
+      # Database settings
+      DB_CLIENT: pg
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-joplin_password}
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE:-joplin}
+      POSTGRES_USER: ${POSTGRES_USER:-joplin}
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: db
+
+      # Optional: Email settings (uncomment and configure if needed)
+      # MAILER_ENABLED: ${MAILER_ENABLED:-0}
+      # MAILER_HOST: ${MAILER_HOST}
+      # MAILER_PORT: ${MAILER_PORT:-587}
+      # MAILER_SECURITY: ${MAILER_SECURITY:-tls}
+      # MAILER_AUTH_USER: ${MAILER_AUTH_USER}
+      # MAILER_AUTH_PASSWORD: ${MAILER_AUTH_PASSWORD}
+      # MAILER_NOREPLY_NAME: ${MAILER_NOREPLY_NAME:-Joplin Server}
+      # MAILER_NOREPLY_EMAIL: ${MAILER_NOREPLY_EMAIL}
+
+      # Optional: Advanced settings
+      # MAX_TIME_DRIFT: ${MAX_TIME_DRIFT:-2000}
+      # USER_CONTENT_DRIVER: ${USER_CONTENT_DRIVER:-Type=Database}
+      # STRIPE_PUBLIC_KEY: ${STRIPE_PUBLIC_KEY}
+      # STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      # STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:22300/api/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
