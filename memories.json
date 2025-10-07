@@ -17,7 +17,45 @@
       "lastAccessed": "2025-10-02T15:26:02.228Z",
       "lastVerified": "2025-10-02T15:26:02.228Z",
       "status": "fresh"
+    },
+    {
+      "id": "mem_1759849201344_zdmuror71",
+      "content": "Desktop app console errors investigation:\n1. React Router v7 warnings about v7_startTransition and v7_relativeSplatPath flags\n2. No react-router found in app-desktop package.json or source files\n3. Desktop app doesn't appear to use React Router at all\n4. The warnings might be from a dependency or embedded content\n5. inject_main.js and content.bundle.js errors are from browser extensions, not Joplin code",
+      "type": "general",
+      "tags": [
+        "general",
+        "react",
+        "joplin",
+        "desktop-app",
+        "debugging",
+        "react-router"
+      ],
+      "timestamp": "2025-10-07T15:00:01.344Z",
+      "context": "User reported console errors in Joplin desktop app",
+      "accessCount": 0,
+      "lastAccessed": "2025-10-07T15:00:01.344Z",
+      "lastVerified": "2025-10-07T15:00:01.344Z",
+      "status": "fresh"
+    },
+    {
+      "id": "mem_1759849454317_5wj94u4xh",
+      "content": "Joplin Server Coolify deployment configuration completed:\n- Domain: mynotes.team-workspace.us\n- Created .env file with proper APP_BASE_URL\n- Generated secure database password: Xet2vsJ9MJMwM/U2aP4CMi3juUfljC0ZeXbLnbPuVpU=\n- Next step: User needs to redeploy in Coolify for changes to take effect",
+      "type": "config",
+      "tags": [
+        "config",
+        "deployment",
+        "database",
+        "joplin",
+        "coolify",
+        "configuration"
+      ],
+      "timestamp": "2025-10-07T15:04:14.316Z",
+      "context": "Fixed \"no available server\" error by configuring environment variables",
+      "accessCount": 0,
+      "lastAccessed": "2025-10-07T15:04:14.316Z",
+      "lastVerified": "2025-10-07T15:04:14.316Z",
+      "status": "fresh"
     }
   ],
-  "lastUpdated": "2025-10-02T15:26:02.228Z"
+  "lastUpdated": "2025-10-07T15:04:14.316Z"
 }
